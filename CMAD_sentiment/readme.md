@@ -1,1 +1,1 @@
-Implementation for UR-FUNNY and MUStARD datasets.
+Implementation for MOSEI dataset.
