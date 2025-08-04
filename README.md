@@ -10,13 +10,12 @@ Figure: Overview of the proposed CMAD framework. It consists of a student model,
 The CMU-MOSEI dataset can be downloaded according to [MIB](https://github.com/TmacMai/Multimodal-Information-Bottleneck) and [MAG](https://github.com/WasifurRahman/BERT_multimodal_transformer) through the following link: 
 ```
 pip install gdown
-gdown https://drive.google.com/uc?id=12HbavGOtoVCqicvSYWl3zImli5Jz0Nou
-gdown https://drive.google.com/uc?id=1VJhSc2TGrPU8zJSVTYwn5kfuG47VaNQ3. 
+gdown https://drive.google.com/uc?id=1VJhSc2TGrPU8zJSVTYwn5kfuG47VaNQ3
 ```
 
 For UR-FUNNY and MUStARD, the dataset can be downloaded according to [HKT](https://github.com/matalvepu/HKT/blob/main/dataset/download.txt) through:
 ```
-Download Link of UR-FUNNY:  https://www.dropbox.com/s/5y8q52vj3jklwmm/ur_funny.pkl?dl=1
+Download Link of UR-FUNNY: https://www.dropbox.com/s/5y8q52vj3jklwmm/ur_funny.pkl?dl=1
 Download Link of MUStARD: https://www.dropbox.com/s/w566pkeo63odcj5/mustard.pkl?dl=1
 ```
 Please rename the files as ur_funny.pkl and mustard.pkl, and move them into the directory ./datasets/.
