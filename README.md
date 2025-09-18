@@ -12,20 +12,9 @@ The CMU-MOSEI dataset can be downloaded according to [MIB](https://github.com/Tm
 pip install gdown
 gdown https://drive.google.com/uc?id=1VJhSc2TGrPU8zJSVTYwn5kfuG47VaNQ3
 ```
+The IEMOCAP dataset can be downloaded according to [MuLT](https://github.com/yaohungt/Multimodal-Transformer/tree/master).
 
-For UR-FUNNY and MUStARD, the dataset can be downloaded according to [HKT](https://github.com/matalvepu/HKT/blob/main/dataset/download.txt) through:
-```
-Download Link of UR-FUNNY: https://www.dropbox.com/s/5y8q52vj3jklwmm/ur_funny.pkl?dl=1
-Download Link of MUStARD: https://www.dropbox.com/s/w566pkeo63odcj5/mustard.pkl?dl=1
-```
-Please rename the files as ur_funny.pkl and mustard.pkl, and move them into the directory ./datasets/.
-
-For CHERMA dataset, you can download from [LFMIM](https://github.com/sunjunaimer/LFMIM) through: 
-```
-https://pan.baidu.com/s/10PoJcXMDhRg4fzsq96A7rQ
-Extraction code: CHER
-```
-Please put the files into directory ./datasets/CHERMA0723/.
+Please put the files into directory ./datasets/.
 
 ### Prerequisites:
 ```
@@ -38,7 +27,10 @@ Please put the files into directory ./datasets/CHERMA0723/.
 **Note that the torch version can be changed to your cuda version, but please keep the transformers==4.30.2 as some functions will change in later versions**
 
 
+
 ### Pretrained model:
 Downlaod the [BERT-base](https://huggingface.co/google-bert/bert-base-uncased/tree/main) , and put into directory ./BERT-EN/.
 
+### Acknowledgement
+Thanks to  [MIB](https://github.com/TmacMai/Multimodal-Information-Bottleneck) , [MAG](https://github.com/WasifurRahman/BERT_multimodal_transformer),  [MCL](https://github.com/TmacMai/Multimodal-Correlation-Learning), [HKT](https://github.com/matalvepu/HKT), [LFMIM](https://github.com/sunjunaimer/LFMIM) and [MMANet](https://github.com/shicaiwei123/MMANet-CVPR2023/tree/main) for their great help to our codes and research. 
 
