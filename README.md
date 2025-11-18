@@ -32,5 +32,16 @@ Please put the files into directory ./datasets/.
 Downlaod the [BERT-base](https://huggingface.co/google-bert/bert-base-uncased/tree/main) , and put into directory ./BERT-EN/.
 
 ### Acknowledgement
-Thanks to  [MIB](https://github.com/TmacMai/Multimodal-Information-Bottleneck) , [MAG](https://github.com/WasifurRahman/BERT_multimodal_transformer),  [MCL](https://github.com/TmacMai/Multimodal-Correlation-Learning), [HKT](https://github.com/matalvepu/HKT), [LFMIM](https://github.com/sunjunaimer/LFMIM) and [MMANet](https://github.com/shicaiwei123/MMANet-CVPR2023/tree/main) for their great help to our codes and research. 
+Thanks to  [MIB](https://github.com/TmacMai/Multimodal-Information-Bottleneck) , [MAG](https://github.com/WasifurRahman/BERT_multimodal_transformer),  [MCL](https://github.com/TmacMai/Multimodal-Correlation-Learning), [HKT](https://github.com/matalvepu/HKT), [LFMIM](https://github.com/sunjunaimer/LFMIM) and [MMANet](https://github.com/shicaiwei123/MMANet-CVPR2023/tree/main) for their great help to our codes and research.
 
+### Citation:
+Please cite our paper if you find our work useful for your research:
+```
+@inproceedings{zhuang2025cmad,
+  title={CMAD: Correlation-Aware and Modalities-Aware Distillation for Multimodal Sentiment Analysis with Missing Modalities},
+  author={Zhuang, Yan and Liu, Minhao and Bai, Wei and Zhang, Yanru and Zhang, Xiaoyue and Deng, Jiawen and Ren, Fuji},
+  booktitle={Proceedings of the IEEE/CVF International Conference on Computer Vision},
+  pages={4626--4636},
+  year={2025}
+}
+```
