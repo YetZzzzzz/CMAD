@@ -7,11 +7,9 @@ Figure: Overview of the proposed CMAD framework. It consists of a student model,
 ### Datasets:
 **Please move the following datasets into directory ```./datasets/```.**
 
-The CMU-MOSEI dataset can be downloaded according to [MIB](https://github.com/TmacMai/Multimodal-Information-Bottleneck) and [MAG](https://github.com/WasifurRahman/BERT_multimodal_transformer) through the following link: 
-```
-pip install gdown
-gdown https://drive.google.com/uc?id=1VJhSc2TGrPU8zJSVTYwn5kfuG47VaNQ3
-```
+The unaligned CMU-MOSEI dataset can be downloaded according to [DiCMoR](https://github.com/mdswyz/DiCMoR) and [IMDer](https://github.com/mdswyz/IMDer), rename the pkl as ```mosei.pkl```. 
+
+
 The IEMOCAP dataset can be downloaded according to [MuLT](https://github.com/yaohungt/Multimodal-Transformer/tree/master).
 
 Please put the files into directory ```./datasets/```.
@@ -50,4 +48,4 @@ Please cite our paper if you find our work useful for your research:
 ```
 
 ### Acknowledgement
-Thanks to  [MIB](https://github.com/TmacMai/Multimodal-Information-Bottleneck) , [MAG](https://github.com/WasifurRahman/BERT_multimodal_transformer),  [MCL](https://github.com/TmacMai/Multimodal-Correlation-Learning), [HKT](https://github.com/matalvepu/HKT), [LFMIM](https://github.com/sunjunaimer/LFMIM) and [MMANet](https://github.com/shicaiwei123/MMANet-CVPR2023/tree/main) for their great help to our codes and research.
+Thanks to  [MIB](https://github.com/TmacMai/Multimodal-Information-Bottleneck) , [MAG](https://github.com/WasifurRahman/BERT_multimodal_transformer),  [DiCMoR](https://github.com/mdswyz/DiCMoR), [IMDer](https://github.com/mdswyz/IMDer), [GCNet](https://github.com/zeroQiaoba/GCNet), [LNLN](https://github.com/Haoyu-ha/LNLN), [HKT](https://github.com/matalvepu/HKT), [LFMIM](https://github.com/sunjunaimer/LFMIM) and [MMANet](https://github.com/shicaiwei123/MMANet-CVPR2023/tree/main) for their great help to our codes and research.
