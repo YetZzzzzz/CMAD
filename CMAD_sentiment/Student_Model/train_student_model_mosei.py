@@ -32,11 +32,12 @@ warnings.filterwarnings("ignore")
 
 
 
-def train_model(net_dict, train_loader, test_loader, args):
+def train_model(net_dict, train_loader, dev_loader, test_loader, args):
     '''
     :param model:
     :param optimizer:
     :param train_loader:
+    :param dev_loader:
     :param test_loader:
     :param args:
     :return:
@@ -54,11 +55,9 @@ def train_model(net_dict, train_loader, test_loader, args):
         {'params': [p for n, p in student_model.named_parameters() if any(nd in n for nd in no_decay)], 'weight_decay': 0.0} # 
     ]
     optimizer = AdamW(optimizer_grouped_parameters, lr=args.learning_rate, eps=args.adam_epsilon)
-    
-    
+
     # Training initialization
     epoch_num = args.n_epochs
-
 
     epoch = 0
     F1_best = 0
@@ -100,7 +99,6 @@ def train_model(net_dict, train_loader, test_loader, args):
             pt_stu_gt_loss = torch.cat(epoch_stu_gt_loss, dim=0)
             pt_mar_weights = combination_importance(pt_stu_gt_loss, pt_tea_gt_loss, pt_stu_ps, combinations, args)
             pt_mar_weights = pt_mar_weights * args.weights
-            print('pt_mar_weights',pt_mar_weights)
             default_mar_weights = torch.ones(7).to(DEVICE)
         elif epoch == args.begin_epoch:
             epoch_stu_ps = torch.cat(epoch_stu_ps, dim=0)
@@ -175,44 +173,68 @@ def train_model(net_dict, train_loader, test_loader, args):
             adjust_learning_rate(optimizer, epoch, args) 
             loss_all.backward()
             optimizer.step()
-          
-        
-        student_model.p = [1,1,1]
-        print("-" * 50+ '[1,1,1]')
-        acc_all, f1_all= evulate(model=student_model, loader=test_loader, args=args)
+
+        student_model.p = [1, 1, 1]
+        print("-" * 50 + 'DEV--[1,1,1]')
+        acc_all, f1_all = evulate(model=student_model, loader=dev_loader, args=args)
+        student_model.p = [1, 0, 0]
+        print("-" * 50 + 'DEV--[1,0,0]')
+        acc_1, f1_1 = evulate(model=student_model, loader=dev_loader, args=args)
+        student_model.p = [0, 1, 0]
+        print("-" * 50 + 'DEV--[0,1,0]')
+        acc_2, f1_2 = evulate(model=student_model, loader=dev_loader, args=args)
+        student_model.p = [0, 0, 1]
+        print("-" * 50 + 'DEV--[0,0,1]')
+        acc_3, f1_3 = evulate(model=student_model, loader=dev_loader, args=args)
+        student_model.p = [1, 1, 0]
+        print("-" * 50 + 'DEV--[1,1,0]')
+        acc_4, f1_4 = evulate(model=student_model, loader=dev_loader, args=args)
+        student_model.p = [1, 0, 1]
+        print("-" * 50 + 'DEV--[1,0,1]')
+        acc_5, f1_5 = evulate(model=student_model, loader=dev_loader, args=args)
+        student_model.p = [0, 1, 1]
+        print("-" * 50 + 'DEV--[0,1,1]')
+        acc_6, f1_6 = evulate(model=student_model, loader=dev_loader, args=args)
+        print('DEV--avg_acc', (acc_all + acc_1 + acc_2 + acc_3 + acc_4 + acc_5 + acc_6) / 7.0)
+        print('DEV--avg_f1', (f1_all + f1_1 + f1_2 + f1_3 + f1_4 + f1_5 + f1_6) / 7.0)
+
         F1_test = f1_all
+        print("Epoch {}, spe_loss={:.5f}, auxi_loss={:.5f},  wei_mse_loss={:.5f}".format(epoch, epoch_spe_loss / len(train_loader), epoch_auxi_loss / len(train_loader),
+              epoch_wei_mse_loss / len(train_loader)))
+
+        print("Epoch {}, loss={:.5f}, F1_test={:.5f},  F1_best={:.5f}".format(epoch, train_loss_all / len(train_loader), F1_test, F1_best))
+        
 
         if F1_test > F1_best:
             F1_best = F1_test
             # save_path = os.path.join(args.model_root, args.dataset + '_f1_best_' + '.pth')
             # torch.save(student_model.state_dict(), save_path)
-        
-            student_model.p = [1,0,0]
-            print("-" * 50+ '[1,0,0]')
-            acc_1, f1_1= evulate(model=student_model, loader=test_loader, args=args)
-            student_model.p = [0,1,0]
-            print("-" * 50+ '[0,1,0]')
-            acc_2, f1_2= evulate(model=student_model, loader=test_loader, args=args)
-            student_model.p = [0,0,1]
-            print("-" * 50+ '[0,0,1]')
-            acc_3, f1_3= evulate(model=student_model, loader=test_loader, args=args)
-            student_model.p = [1,1,0]
-            print("-" * 50+ '[1,1,0]')
-            acc_4, f1_4= evulate(model=student_model, loader=test_loader, args=args)
-            student_model.p = [1,0,1]
-            print("-" * 50+ '[1,0,1]')
-            acc_5, f1_5= evulate(model=student_model, loader=test_loader, args=args)
-            student_model.p = [0,1,1]
-            print("-" * 50+ '[0,1,1]')
-            acc_6, f1_6= evulate(model=student_model, loader=test_loader, args=args)
-            print('avg_acc', (acc_all+acc_1+acc_2+acc_3+acc_4+acc_5+acc_6)/7.0)
-            print('avg_f1', (f1_all+f1_1+f1_2+f1_3+f1_4+f1_5+f1_6)/7.0)
 
-        print("Epoch {}, spe_loss={:.5f}, auxi_loss={:.5f},  wei_mse_loss={:.5f}".format(epoch, epoch_spe_loss / len(train_loader), epoch_auxi_loss / len(train_loader),
-              epoch_wei_mse_loss / len(train_loader)))
-
-        print(
-            "Epoch {}, loss={:.5f}, F1_test={:.5f},  F1_best={:.5f}".format(epoch, train_loss_all / len(train_loader), F1_test, F1_best))
+            student_model.p = [1, 1, 1]
+            print("-" * 50 + 'TEST--[1,1,1]')
+            acc_all, f1_all = evulate(model=student_model, loader=test_loader, args=args)
+            student_model.p = [1, 0, 0]
+            print("-" * 50 + 'TEST--[1,0,0]')
+            acc_1, f1_1 = evulate(model=student_model, loader=test_loader, args=args)
+            student_model.p = [0, 1, 0]
+            print("-" * 50 + 'TEST--[0,1,0]')
+            acc_2, f1_2 = evulate(model=student_model, loader=test_loader, args=args)
+            student_model.p = [0, 0, 1]
+            print("-" * 50 + 'TEST--[0,0,1]')
+            acc_3, f1_3 = evulate(model=student_model, loader=test_loader, args=args)
+            student_model.p = [1, 1, 0]
+            print("-" * 50 + 'TEST--[1,1,0]')
+            acc_4, f1_4 = evulate(model=student_model, loader=test_loader, args=args)
+            student_model.p = [1, 0, 1]
+            print("-" * 50 + 'TEST--[1,0,1]')
+            acc_5, f1_5 = evulate(model=student_model, loader=test_loader, args=args)
+            student_model.p = [0, 1, 1]
+            print("-" * 50 + 'TEST--[0,1,1]')
+            acc_6, f1_6 = evulate(model=student_model, loader=test_loader, args=args)
+            print('TEST--avg_acc', (acc_all + acc_1 + acc_2 + acc_3 + acc_4 + acc_5 + acc_6) / 7.0)
+            print('TEST--avg_f1', (f1_all + f1_1 + f1_2 + f1_3 + f1_4 + f1_5 + f1_6) / 7.0)
+            
+        print("Epoch {}, loss={:.5f}, F1_test={:.5f},  F1_best={:.5f}".format(epoch, train_loss_all / len(train_loader), F1_test, F1_best))
 
    
         train_state = {
