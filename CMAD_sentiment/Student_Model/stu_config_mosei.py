@@ -83,8 +83,6 @@ class InputFeatures(object):
         self.segment_ids = segment_ids
         self.label_id = label_id
 
-
-
 def convert_to_features(args, examples, max_seq_length, tokenizer):
     features = []
 
@@ -177,7 +175,6 @@ def prepare_bert_input(args, tokens, visual, acoustic, tokenizer):# include the 
 
 
 
-
 def get_tokenizer(model):
     if model == "bert-base-uncased":
         return BertTokenizer.from_pretrained('./BERT_EN/')
@@ -193,7 +190,6 @@ def get_tokenizer(model):
 def get_appropriate_dataset(data):
 
     tokenizer = get_tokenizer(args.model)
-
     features = convert_to_features(args, data, args.max_seq_length, tokenizer)
     all_input_ids = torch.tensor(
         [f.input_ids for f in features], dtype=torch.long)
@@ -367,7 +363,6 @@ parser.add_argument('--save_path', type=str, default='./CMAD_sentiment/Teacher_M
                     help='path for storing the dataset')
 parser.add_argument('--clip', type=float, default=1.0,
                     help='gradient clip value (default: 0.8)')
-
 # hyperparameters for student settings
 parser.add_argument('--momentum', type=float, default=0.90)
 parser.add_argument('--model_root', type=str, default='./CMAD_sentiment/Teacher_Model',
@@ -399,10 +394,8 @@ if args.dataset == 'mosei':
     args.TEXT_DIM = 768
     args.ACOUSTIC_DIM = 74
     args.VISUAL_DIM = 35
-
 else:
     print('wrong dataset')
-
 
 
 args.name = str(args.dataset) + '_version_' + str(args.version) + '_WMSE_' + str(args.delta) +  '_MAR_' + str(args.gamma) + '_DKD_' + str(args.alpha) + '_' + str(args.beta)
@@ -447,7 +440,7 @@ def train_main(args):
 
     nets = {'snet': student_model, 'tnet': teacher_model}
 
-    train_model(net_dict=nets, train_loader=train_loader, test_loader=test_loader, args=args)#optimizer=optimizer, 
+    train_model(net_dict=nets, train_loader=train_loader, dev_loader=dev_loader, test_loader=test_loader, args=args)
 
 
 
