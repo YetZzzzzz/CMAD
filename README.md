@@ -10,9 +10,10 @@ Figure: Overview of the proposed CMAD framework. It consists of a student model,
 The CMU-MOSEI dataset can be downloaded according to [MIB](https://github.com/TmacMai/Multimodal-Information-Bottleneck) and [MAG](https://github.com/WasifurRahman/BERT_multimodal_transformer) through the following link: 
 ```
 pip install gdown
-gdown https://drive.google.com/uc?id=1VJhSc2TGrPU8zJSVTYwn5kfuG47VaNQ3```
-Rename the pkl as ```mosei.pkl```. 
+gdown https://drive.google.com/uc?id=1VJhSc2TGrPU8zJSVTYwn5kfuG47VaNQ3
+```
 
+Rename the pkl as ```mosei.pkl```. 
 
 The IEMOCAP dataset can be downloaded according to [MuLT](https://github.com/yaohungt/Multimodal-Transformer/tree/master).
 
